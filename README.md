@@ -1,7 +1,7 @@
 # Winter is Leaving And SPRING is Coming
 > 겨울은 떠나고, 봄이 오고 있다.
 
-- 요우의 본격 Java Spring Boot 삽질기ㅅ(Git)
+- 요우의 본격 Java Spring Boot 1주일 삽질기ㅅ(Git)
 - 이젠 스프링을 한번쯤은 해봐야할 때
 
 ## Enviorment
@@ -11,13 +11,14 @@
     - 학부생 때 Servlet과 JSP로 웹 프로젝트를 해본 적은 있음
     - 그 외 자바 지식 전무
   - OS
-    - Ubuntu 17.10
+    - Ubuntu 17.10 (on Windows VirtualBox VM)
   - Java
     - java version "1.8.0_151"
     - Java(TM) SE Runtime Environment (build 1.8.0_151-b12)
     - Java HotSpot(TM) 64-Bit Server VM (build 25.151-b12, mixed mode)
   - IDE
     - IntelliJ IDEA Ultimate
+  - Spring Boot: 1.5.9
 
 ## What I’ll build
   - RDBMS와 연결된 간단한 REST API Service
@@ -52,6 +53,10 @@
     - 인텔리J의 build를 실행시키는게 아니라 gradle의 build 명령어를 실행시켜야하는 것이 었음.
     - 빌드와 실행 성공
     - **1일차 성과: 6시간만에 환경 구축과 빌드, 실행 성공**
+  - 착수 2일차 (2017. 12. 26, 화)
+    - 24, 25일 크리스마스로 인한 휴무
+    - 오늘은 웹 서비스 띄우기, DB 설계, 연동이 목표
+
 
 
 ## Notes
@@ -61,14 +66,24 @@
   - 컴파일이나 런타임 단계에서 해석
   - 클래스 , 필드 , 메서드 같은 프로그램 요소에 다양한 종류의 정보를 주는 방법
   - 학부생 때 했던 웹 프로젝트의 web.xml 노가다를 줄일 수 있는 것 같다.
-- @RestController
-  - https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/RestController.html
-- @RequestMapping
-  - https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/RequestMapping.html
-  - Express.js의 Router와 비슷한 친구
-- @RequestParam
-  - https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/RequestParam.html
-  - request params와 method의 params를 바인딩 해줌
+  - @RestController
+    - https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/RestController.html
+  - @RequestMapping
+    - https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/RequestMapping.html
+    - Express.js의 Router와 비슷한 친구
+  - @RequestParam
+    - https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/web/bind/annotation/RequestParam.html
+    - request params와 method의 params를 바인딩 해줌
+  - @SpringBootApplication
+    - 많은 설정을 추가해주는 편리한 친구
+  - @Autowired
+    - https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/beans/factory/annotation/Autowired.html
+    - 아직 잘 모르겠다. 자동으로 setter, getter 설정?
+- JPA
+  - http://jdm.kr/blog/121
+  - https://www.slideshare.net/ssusere4d67c/jpa-53004111
+  - Example: https://spring.io/guides/gs/accessing-data-mysql/
+  - DDL Auto: http://cpdev.tistory.com/25
+  - Datetime Column 관련 : http://homoefficio.github.io/2016/11/19/Spring-Data-JPA-%EC%97%90%EC%84%9C-Java8-Date-Time-JSR-310-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0/
 
-- @SpringBootApplication
-  - 많은 설정을 추가해주는 편리한 친구
+## 기타 참고자료
