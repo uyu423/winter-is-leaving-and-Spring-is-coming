@@ -22,6 +22,14 @@ public class User {
     @Column(name = "updatedAt", insertable = false, updatable = false, columnDefinition = "TIMESTAMP")
     private Date updatedAt;
 
+    public User(String email, String name, Date createdAt) {
+        this.email = email;
+        this.name = name;
+        this.createdAt = createdAt;
+    }
+
+    public User() {}
+
     public Long getId() {
         return id;
     }
@@ -48,5 +56,13 @@ public class User {
 
     public Date getUpdatedAt() {
         return updatedAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
     }
 }
