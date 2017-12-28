@@ -1,41 +1,79 @@
 package com.timeline.controller;
 
-import com.timeline.domain.Post;
-import com.timeline.repository.PostRepository;
+import com.timeline.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.stream.Stream;
-
+import java.util.Map;
 
 @RestController
 @RequestMapping(path="/post")
-public class PostController {
+public class PostController extends Controller{
     @Autowired
-    private PostRepository repository;
+    private PostService postService;
 
-//    @RequestMapping(method = RequestMethod.POST)
     @PostMapping
-    public Post createPost(@RequestBody Post newPost) {
-        repository.save(newPost);
+    public Map<String, Object> createPost (@RequestBody Map<String, Object> body) {
+        try {
+            return this.httpResponse(true, postService.create(
+                    new Long((Integer)body.get("userId")),
+                    (String)body.get("content")
+            ));
 
-        return newPost;
+        } catch (Exception error) {
+            error.printStackTrace();
+            return this.httpResponse(false, error.toString());
+        }
     }
 
-    @GetMapping(path="/{id}")
-    public Post getPostById(@PathVariable("id") Long postId) {
-        Post post = repository.findOne(postId);
-
-        return post;
+    @GetMapping(path = "/{postId}")
+    public Map<String, Object> getPostById (@PathVariable("postId") Long postId) {
+        try {
+            return this.httpResponse(true, postService.find(postId));
+        } catch (Exception error) {
+            error.printStackTrace();
+            return this.httpResponse(false, error.toString());
+        }
     }
 
-    @GetMapping
-    public Iterable<Post> getPostByUserId(@RequestParam Long userId) {
-        return repository.findByUserId(userId);
+    @PutMapping(path = "/{postId}")
+    public Map<String, Object> updatPostById (@PathVariable("postId") Long postId,
+                                              @RequestBody  Map<String, Object> body) {
+        try {
+           return this.httpResponse(true, postService.update(postId, (String)body.get("content")));
+        } catch (Exception error) {
+            error.printStackTrace();
+            return this.httpResponse(false, error.toString());
+        }
+
     }
+
+    @DeleteMapping(path = "/{postId}")
+    public Map<String, Object> deletePostById (@PathVariable("postId") Long postId) {
+        try {
+            postService.delete(postId);
+            return this.httpResponse(true, null);
+        } catch (Exception error) {
+            error.printStackTrace();
+            return this.httpResponse(false, error.toString());
+        }
+    }
+//
+//    @PostMapping(path = "/{postId}/comment")
+//    public Boolean createComment() {
+//        return false;
+//    }
+//
+//    @PutMapping(path = "/{postId}/comment/{commentId}")
+//    public Boolean updateCommentById() {
+//        return false;
+//
+//    }
+//
+//    @DeleteMapping(path = "/{postId}/comment/{commentId}")
+//    public Boolean deleteCommentById() {
+//        return false;
+//
+//    }
+
 }

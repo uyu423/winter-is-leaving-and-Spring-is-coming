@@ -1,39 +1,46 @@
 package com.timeline.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import java.time.LocalDateTime;
+import javax.persistence.*;
+import java.util.Collection;
+import java.util.Date;
+import java.util.stream.Stream;
 
 @Entity
+@Table(name = "post")
 public class Post {
     @Id
+    @Column(insertable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Long userId;
+    @OneToOne
+    @JoinColumn(name="userId")
+    private User user;
 
+    @Column(columnDefinition = "TEXT")
     private String content;
 
-    private LocalDateTime createdAt;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name="postId")
+    private Collection<Comment> comments;
 
-    private LocalDateTime updatedAt;
+    @Column(name = "createdAt", insertable = false, updatable = false, columnDefinition = "TIMESTAMP")
+    private Date createdAt;
+
+    @Column(name = "updatedAt", insertable = false, updatable = false, columnDefinition = "TIMESTAMP")
+    private Date updatedAt;
+
+    public Post(User user, String content, Date createdAt) {
+        this.user = user;
+        this.content = content;
+        this.createdAt = createdAt;
+    }
+
+    public Post() {}
+
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 
     public String getContent() {
@@ -44,19 +51,35 @@ public class Post {
         this.content = content;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
-    public LocalDateTime getUpdatedAt() {
+    public Date getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(LocalDateTime updatedAt) {
+    public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Collection<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Collection<Comment> comments) {
+        this.comments = comments;
     }
 }
