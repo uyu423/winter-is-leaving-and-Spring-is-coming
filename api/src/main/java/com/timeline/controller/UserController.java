@@ -3,6 +3,7 @@ package com.timeline.controller;
 import com.timeline.domain.User;
 import com.timeline.repository.UserRepository;
 import com.timeline.service.FollowRelationService;
+import com.timeline.service.PostService;
 import com.timeline.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,9 @@ public class UserController extends Controller{
 
     @Autowired
     private FollowRelationService followService;
+
+    @Autowired
+    private PostService postService;
 
     @PostMapping
     public Map<String, Object> createUser (@RequestBody Map<String, Object> body) {
@@ -58,6 +62,16 @@ public class UserController extends Controller{
         try {
             userService.delete(userId);
             return this.httpResponse(true, null);
+        } catch (Exception error) {
+            error.printStackTrace();
+            return this.httpResponse(false, error.toString());
+        }
+    }
+
+    @GetMapping(path = "/{userId}/post")
+    public Map<String, Object> getPostByUserId (@PathVariable Long userId) {
+        try {
+            return this.httpResponse(true, postService.findByUserId(userId));
         } catch (Exception error) {
             error.printStackTrace();
             return this.httpResponse(false, error.toString());

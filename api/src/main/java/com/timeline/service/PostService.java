@@ -7,6 +7,7 @@ import com.timeline.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.Date;
 
 @Service
@@ -20,6 +21,20 @@ public class PostService {
     public Post find(Long postId) throws Exception {
         if (postId == null) throw new Exception("postId is Required");
         return postRepository.findOne(postId);
+    }
+
+    public Collection<Post> findByUserId(Long userId) throws Exception {
+        if (userId == null) throw new Exception("userId is Required");
+        User user = userRepository.findOne(userId);
+        if (user == null) throw new Exception("user is null");
+        return postRepository.findByUserOrderByCreatedAtDesc(user);
+    }
+
+    public Collection<Post> findForTimeline(Long userId) throws Exception {
+        if (userId == null) throw new Exception("userId is Required");
+        User user = userRepository.findOne(userId);
+        if (user == null) throw new Exception("user is null");
+        return postRepository.findPostsByFollowInfo(user);
     }
 
     public Post create(Long userId, String content) throws Exception {
