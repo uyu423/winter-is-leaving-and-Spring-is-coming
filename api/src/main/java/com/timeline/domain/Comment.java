@@ -13,10 +13,8 @@ public class Comment {
 
     private Long postId;
 
-    private Long userId;
-
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="id")
+    @JoinColumn(name="userId")
     private User user;
 
     @Column(columnDefinition = "TEXT")
@@ -32,16 +30,12 @@ public class Comment {
         return postId;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
     public User getUser() {
         return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getContent() {

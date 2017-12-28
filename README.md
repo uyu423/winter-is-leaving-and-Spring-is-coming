@@ -55,12 +55,14 @@
 
 #### Get User Followers
 - GET `/{userId}/follower`
+- Not Implemented
 
 #### Following User
 - POST `/{userId}/follow`
 
 #### Unfollow User
 - DELETE `/{userId}/follow`
+- available Query Parameter `followUserId`
 
 ### Post
 - `/post`

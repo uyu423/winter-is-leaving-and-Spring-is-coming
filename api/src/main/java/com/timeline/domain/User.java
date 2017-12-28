@@ -1,6 +1,7 @@
 package com.timeline.domain;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Date;
 
 @Entity
