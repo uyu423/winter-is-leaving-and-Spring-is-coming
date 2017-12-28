@@ -7,18 +7,16 @@ import javax.persistence.Id;
 import java.time.LocalDateTime;
 
 @Entity
-public class Post {
+public class UserFollowRelation {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private Long userId;
 
-    private String content;
+    private Long followUserId;
 
     private LocalDateTime createdAt;
-
-    private LocalDateTime updatedAt;
 
     public Long getId() {
         return id;
@@ -36,12 +34,12 @@ public class Post {
         this.userId = userId;
     }
 
-    public String getContent() {
-        return content;
+    public Long getFollowUserId() {
+        return followUserId;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setFollowUserId(Long followUserId) {
+        this.followUserId = followUserId;
     }
 
     public LocalDateTime getCreatedAt() {
@@ -50,13 +48,5 @@ public class Post {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
     }
 }
