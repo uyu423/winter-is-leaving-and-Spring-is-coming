@@ -91,7 +91,7 @@
       - 자잘한 이슈
         - windows java path 문제
     - **3일차 성과: 컨트롤러, 레포지터리 작성**
-  - 착수 4일차 (2017. 12. 28, 목)
+  - 착수 4~5일차 (2017. 12. 28~29, 목~금)
     - 4일차 목표: 기능적 요구사항 개발 완료. 대용량 트래픽 처리 방법 Research
     - 이슈
       - MySQL Timestamp CURRENT_TIMESTAMP
@@ -107,6 +107,12 @@
         https://stackoverflow.com/questions/25283198/spring-boot-jpa-column-name-annotation-ignored
       - @RequestBody로 JSON을 받는 가장 간단한 방법
         - `@RequestBody Map<String, Object> body`
+  - 착수 6일차 (2017. 12. 30, 토)
+    - 6일차 목표: 마무리, REPORT.md 작성
+    - 이슈
+      - comment 객체 호출 수 도메인 순환 참조 발생 (Comment -> Post -> Comment -> Post)
+      - Comment에서 Post 내부 내용을 알 필요는 없으니 @OneToOne 관계를 해제하고 postId만 가지게 함.
+
 
 ## Notes
 - Java Annotations
